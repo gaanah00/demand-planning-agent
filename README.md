@@ -177,14 +177,3 @@ tests/                       pytest unit tests + end-to-end script
 | **React + TypeScript, bundled with esbuild** | esbuild is the bundler Vite uses internally. A single build script gives one static bundle that the backend serves, so users don't need Node.js. |
 | **Plotly** | Figures are built as Plotly JSON in Python and rendered by plotly.js in the browser. plotly.js is served locally from the Python `plotly` package, so charts work without internet access. |
 | **KaTeX, marked** | Formula rendering in the glossary; markdown in answers (raw HTML from the model is never rendered). |
-
-## Limitations (stated honestly)
-
-- **Plausible doesn't mean correct.** The model can still choose an inappropriate tool or word an explanation poorly. The provenance check catches invented numbers, not flawed reasoning. Review the audit trail for important decisions.
-- **Elasticity.** Estimates are averages across SKUs and come from historical price ranges. Promotional elasticity overstates the response to permanent price changes, which is why it isn't applied automatically.
-- **Tariff mechanics.** These are simplified: the rate applies to supplier unit cost (customs value), freight is not tariffed, current rates come from the latest PO per supplier, and FIFO timing comes from current stock and open POs.
-- **Shifting volume.** Only suppliers already contracted for a SKU are considered. Qualifying a new supplier can't be evaluated from the data.
-- **Interval totals.** Summing weekly prediction-interval bounds overstates the uncertainty of a total, and the app says so.
-- **Persistence is local files.** Workspaces are saved under `.sessions/` as JSON + pandas pickles written by this app; forecasts and charts are recomputed after a restart. Only open workspaces you created (pickles are code-capable).
-- **Reorder plan simplifications.** Location forecasts are a share of the SKU forecast; supplier capacity is not checked in the reorder quantity; the service level is a user choice.
-- **Demo-scale data.** About 50 MB of tables and a few hundred thousand rows is comfortable. Much larger data would call for DuckDB and pre-aggregation.
