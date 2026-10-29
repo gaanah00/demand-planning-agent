@@ -1,0 +1,8 @@
+.env
+.venv/
+.venv-local/
+__pycache__/
+.sessions/
+.pytest_sessions/
+frontend/node_modules/
+*.pyc

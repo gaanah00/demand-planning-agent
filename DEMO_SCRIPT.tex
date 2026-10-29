@@ -1,0 +1,212 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\section{Live demo script (5-7
+minutes)}\label{live-demo-script-5-7-minutes}
+
+\subsection{Before class (10 minutes, same
+laptop)}\label{before-class-10-minutes-same-laptop}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{uv\ run\ python\ start.py}: confirm the header says
+  \textbf{``23 tables loaded, model claude-\ldots{}''} after step 1
+  below, and that no yellow ``AI not connected'' banner shows.
+\item
+  Do one full dry run of the prompts below. This warms the
+  operating-system file cache and confirms the API key works.
+\item
+  Reload the page (a fresh session) right before presenting. Keep this
+  file open on a second screen.
+\item
+  Turn off sleep / screen saver. Have a phone hotspot ready in case the
+  classroom Wi-Fi blocks the Anthropic API.
+\end{enumerate}
+
+\subsection{The path}\label{the-path}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Do / type exactly
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What to point out
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0:00 & Click \textbf{Load demo data} & It runs the bundled \textbf{ZIP
+of Excel files} through the same upload pipeline as any user upload. The
+progress steps show as it works. \\
+0:40 & Upload summary appears & 23 tables with rows × columns, keys,
+date ranges and a quality badge each. Click \textbf{Review
+relationships}: 45 inferred joins, all with 100\% keys matched. Note
+\emph{category} and \emph{month} are flagged ``aggregate first''. Click
+\textbf{Confirm 45 relationships}. \\
+1:10 &
+\texttt{Give\ me\ the\ data\ quality\ report\ and\ tell\ me\ what\ needs\ fixing.}
+& No missing weeks; 25 short-history series; stockouts are explicit
+(lost-sales column), so we forecast \textbf{unconstrained demand}.
+Outliers are flagged but never deleted, and each comes with its likely
+cause (Black Friday, promotions, winter storm). \\
+2:00 &
+\texttt{Forecast\ total\ weekly\ demand\ for\ the\ next\ 13\ weeks.\ Does\ the\ model\ beat\ the\ baselines?}
+& Chart with an 80\% prediction interval. All three baselines were
+computed and the ML model beats seasonal naive in a rolling-origin
+backtest. Open \textbf{How this was computed} to show the exact tool
+calls. Click the \textbf{wape} tag: the glossary opens with the formula
+and a worked example using these numbers. \\
+3:00 &
+\texttt{A\ 25\%\ tariff\ is\ imposed\ on\ imports\ from\ India\ starting\ 10/29/2026.}
+& The honest answer: \textbf{no supplier is in India}, so 0 SKUs are
+exposed. It lists the countries we do import from instead of inventing
+an impact. \\
+3:30 &
+\texttt{A\ 25\%\ tariff\ is\ imposed\ on\ imports\ from\ South\ Korea\ starting\ 10/29/2026.}
+& It parses the event into a \textbf{draft} scenario: 10 SKUs, 2
+suppliers, and default assumptions (additive tariff, no price
+pass-through, FIFO timing, no demand effect). \textbf{Nothing is applied
+yet.} \\
+4:00 & In the sidebar under \emph{Scenarios \& assumptions}, click
+\textbf{Confirm and apply} & Four parts: normal conditions, what
+changes, what is affected, mitigations. Show the \textbf{Computed /
+Estimated / Assumed} badges. Pre-buy is \textbf{not feasible} (8-week
+lead time vs 9 days); shifting volume to existing US/French suppliers
+is. 7 SKUs have no alternate supplier, and this is flagged as not
+evaluable. \\
+5:15 & Click the next-question chip about price pass-through, or type
+\texttt{What\ if\ we\ pass\ 50\%\ of\ the\ cost\ into\ price?\ Can\ the\ data\ estimate\ how\ demand\ reacts?}
+& The promotional elasticity is about −3, but the list-price elasticity
+is \textbf{not statistically distinguishable from zero}. So the app
+shows a hypothetical sensitivity table and asks which assumption to use,
+instead of guessing. \\
+6:15 & Point at the bottom of any answer & ``All N numbers trace back to
+tool results'': the automatic provenance check. Close with the
+architecture diagram in README.md. \\
+\end{longtable}
+}
+
+\subsection{Fallback plan}\label{fallback-plan}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Problem
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What to do
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Answer shows ``Could not reach the Anthropic API'' & Switch to the phone
+hotspot and click the last question chip again. The app keeps running,
+and nothing needs restarting. \\
+Rate limit or overload message & Wait 10 seconds and resend. \\
+A chat answer is slow (\textgreater{} 60 s) & Talk through the progress
+steps shown on screen. Forecasts are cached, so a repeated question is
+instant. \\
+Charts don't render & Restart with \texttt{uv\ run\ python\ start.py}
+(plotly.js is served locally from the Python package). \\
+The API is unusable for the whole session & Restart in \textbf{scripted
+backup mode}. It runs the same tools and data with a scripted stand-in
+for Claude, and the header shows ``model scripted-test-client''.
+\textbf{Say so to the audience.} Windows PowerShell:
+\texttt{\$env:DPA\_LLM\_STUB="e2e\_stub:make";\ \$env:PYTHONPATH="tests";\ uv\ run\ python\ start.py}.
+The demo prompts above (data quality, forecast, India, South Korea,
+confirm) are supported. \\
+Laptop fails & Present screenshots from the dry run (take them during
+the dry run). \\
+\end{longtable}
+}
+
+\end{document}

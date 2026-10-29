@@ -1,0 +1,31 @@
+[project]
+name = "demand-planning-agent"
+version = "1.0.0"
+description = "AI demand-planning data scientist: Claude orchestrates deterministic Python analytics (profiling, joins, quality, forecasting, scenarios)."
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "starlette>=0.40",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "statsmodels>=0.14",
+    "lightgbm>=4.3",
+    "openpyxl>=3.1",
+    "python-calamine>=0.2",
+    "xlrd>=2.0",
+    "plotly>=5.22",
+    "anthropic>=0.40",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
